@@ -8,6 +8,10 @@ package com.graphqlguy.moviedb.shared;
  */
 public interface Content {
 
+    /** The persistent identifier. A watchlist item returns Content, and an agent
+     *  that reads one needs the id to do anything further with the title. */
+    Long getId();
+
     String getTitle();
 
     Genre getGenre();

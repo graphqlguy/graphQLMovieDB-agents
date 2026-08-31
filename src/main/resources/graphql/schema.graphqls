@@ -34,6 +34,7 @@ union SearchResult = Movie | Person | TvShow
 
 """Something watchable: the fields a Movie and a TV show have in common."""
 interface Content {
+    id: ID!
     title: String!
     genre: Genre
     rating: Float
