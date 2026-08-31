@@ -25,8 +25,6 @@ type Query {
     tmdbSearch(title: String!): [TmdbResult!]!
     tvShow(id: ID!): TvShow
     tvShows(page: Int = 0 @Range(min: 0), size: Int = 10 @Range(min: 1, max: 100)): TvShowPage!
-    """The signed-in user's watch list."""
-    watchlist: [WatchlistItem!]!
 }
 
 """Union of Movie and Person for cross-type search"""
@@ -221,12 +219,6 @@ type Mutation {
     """Delete a review (owner or admin only)"""
     deleteReview(id: ID!): DeleteReviewResponse!
 
-    """Add a movie or TV show to the signed-in user's watch list."""
-    addToWatchlist(subject: WatchlistSubjectInput!, status: WatchStatus): WatchlistItem!
-    """Change a watch-list entry's status, e.g. mark it watched."""
-    setWatchStatus(itemId: ID!, status: WatchStatus!): WatchlistItem!
-    """Remove an entry from the watch list."""
-    removeFromWatchlist(itemId: ID!): Boolean!
 }
 
 
@@ -349,24 +341,6 @@ type TvShowPage {
     totalPages: Int!
     currentPage: Int!
     size: Int!
-}
-
-"""A single entry in a user's watch list: a movie or a show, plus its status."""
-type WatchlistItem {
-    id: ID!
-    content: Content!
-    status: WatchStatus!
-}
-
-enum WatchStatus {
-    WANT_TO_WATCH
-    WATCHED
-}
-
-"""Identifies the title to add. @oneOf: provide exactly one of movieId or tvShowId."""
-input WatchlistSubjectInput @oneOf {
-    movieId: ID
-    tvShowId: ID
 }
 
 """A user's review of a movie or TV show"""
