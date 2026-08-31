@@ -25,6 +25,12 @@ type Query {
     tmdbSearch(title: String!): [TmdbResult!]!
     tvShow(id: ID!): TvShow
     tvShows(page: Int = 0 @Range(min: 0), size: Int = 10 @Range(min: 1, max: 100)): TvShowPage!
+    """The signed-in user's own watch lists, newest first."""
+    myWatchLists: [WatchList!]!
+    """Watch lists their owners marked public. Readable without signing in."""
+    publicWatchLists(page: Int = 0 @Range(min: 0), size: Int = 20 @Range(min: 1, max: 100)): [WatchList!]!
+    """One watch list by id. Public lists are readable by anyone; private lists only by their owner."""
+    watchList(id: ID!): WatchList
 }
 
 """Union of Movie and Person for cross-type search"""
@@ -219,6 +225,19 @@ type Mutation {
     """Delete a review (owner or admin only)"""
     deleteReview(id: ID!): DeleteReviewResponse!
 
+    """Create a watch list owned by the signed-in user."""
+    createWatchList(input: CreateWatchListInput!): WatchList!
+    """Rename a list or change whether it is public. Owner only."""
+    updateWatchList(id: ID!, input: UpdateWatchListInput!): WatchList!
+    """Delete a list and everything on it. Owner only."""
+    deleteWatchList(id: ID!): DeleteWatchListResponse!
+    """Add a movie or TV show to one of your lists. Adding a title that is already there returns the existing entry, so retrying is safe."""
+    addWatchListItem(input: AddWatchListItemInput!): AddWatchListItemResponse!
+    """Remove one entry from a list. Owner only."""
+    removeWatchListItem(id: ID!): RemoveWatchListItemResponse!
+    """Mark an entry watched or unwatched. Owner only."""
+    markWatchListItemWatched(id: ID!, watched: Boolean!): WatchListItem!
+
 }
 
 
@@ -391,4 +410,81 @@ type DeleteReviewResponse {
     success: Boolean!
     """ID of the deleted review, or null if nothing was deleted."""
     deletedId: ID
+}
+
+"""A named collection of titles a user wants to watch or has watched."""
+type WatchList {
+    id: ID!
+    user: User!
+    name: String!
+    description: String
+    isPublic: Boolean!
+    createdAt: DateTime!
+    items: [WatchListItem!]!
+    """How many titles are on the list."""
+    itemCount: Int!
+}
+
+"""One title on a watch list."""
+type WatchListItem {
+    id: ID!
+    """The referenced title. Null when the Movie or TvShow behind it has been deleted: the reference is polymorphic with no foreign key, so a null here costs one field instead of collapsing the list."""
+    title: Content
+    titleType: TitleTypeEnum!
+    addedAt: DateTime!
+    watched: Boolean!
+    watchedAt: DateTime
+    userNotes: String
+}
+
+"""Whether a watch-list entry points at a movie or a TV show."""
+enum TitleTypeEnum {
+    MOVIE
+    TV_SHOW
+}
+
+type DeleteWatchListResponse {
+    success: Boolean!
+    """ID of the deleted list, or null if nothing was deleted."""
+    deletedId: ID
+}
+
+type RemoveWatchListItemResponse {
+    success: Boolean!
+    """ID of the removed entry, or null if nothing was removed."""
+    deletedId: ID
+}
+
+"""Why an addWatchListItem call added nothing."""
+type AddWatchListItemError {
+    """WATCHLIST_NOT_FOUND or TITLE_NOT_FOUND. Branch on this, not on the message."""
+    code: String!
+    """Human-readable explanation, safe to show to a user."""
+    message: String!
+}
+
+"""The outcome of addWatchListItem. Failures a caller can anticipate arrive here as data."""
+type AddWatchListItemResponse {
+    success: Boolean!
+    item: WatchListItem
+    error: AddWatchListItemError
+}
+
+input CreateWatchListInput {
+    name: String! @Size(max: 120)
+    description: String @Size(max: 1000)
+    isPublic: Boolean
+}
+
+input UpdateWatchListInput {
+    name: String @Size(max: 120)
+    description: String @Size(max: 1000)
+    isPublic: Boolean
+}
+
+input AddWatchListItemInput {
+    watchListId: ID!
+    titleId: ID!
+    titleType: TitleTypeEnum!
+    userNotes: String @Size(max: 1000)
 }

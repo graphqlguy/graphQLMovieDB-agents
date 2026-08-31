@@ -8,6 +8,9 @@ import java.util.Optional;
 
 public interface WatchListItemRepository extends JpaRepository<WatchListItem, Long> {
     List<WatchListItem> findByWatchListId(Long watchListId);
+
+    /** Loads the items for many lists in one query, for the WatchList.items batch mapping. */
+    List<WatchListItem> findByWatchListIdIn(List<Long> watchListIds);
     Optional<WatchListItem> findByWatchListIdAndTitleIdAndTitleType(
         Long watchListId, Long titleId, TitleType titleType);
 }

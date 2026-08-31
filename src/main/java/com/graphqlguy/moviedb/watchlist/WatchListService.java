@@ -78,9 +78,15 @@ public class WatchListService {
     }
 
     @Transactional
+    /**
+     * Adds a title to a list, or returns the item that is already there. Idempotent by
+     * design: an agent that retries a write it is unsure about must not create a
+     * duplicate. Throws WatchListNotFound or TitleNotFound so the controller can turn
+     * each into typed data; AccessDeniedException stays an execution error.
+     */
     public WatchListItem addItem(Long watchListId, Long titleId, TitleType titleType, String userNotes) {
         WatchList wl = watchListRepository.findById(watchListId)
-            .orElseThrow(() -> new IllegalArgumentException("WatchList not found: " + watchListId));
+            .orElseThrow(() -> new WatchListNotFoundException(watchListId));
         assertCallerIsOwner(wl);
         var existing = itemRepository.findByWatchListIdAndTitleIdAndTitleType(watchListId, titleId, titleType);
         if (existing.isPresent()) {
@@ -91,7 +97,7 @@ public class WatchListService {
             case TV_SHOW -> tvShowRepository.existsById(titleId);
         };
         if (!titleExists) {
-            throw new IllegalArgumentException("Title not found: " + titleType + " " + titleId);
+            throw new TitleNotFoundException(titleType, titleId);
         }
         WatchListItem item = WatchListItem.builder()
             .watchList(wl)

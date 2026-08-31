@@ -16,7 +16,13 @@ import com.graphqlguy.moviedb.tvshow.Episode;
 import com.graphqlguy.moviedb.tvshow.EpisodeRepository;
 import com.graphqlguy.moviedb.user.AppUser;
 import com.graphqlguy.moviedb.user.Role;
+import java.time.OffsetDateTime;
+import com.graphqlguy.moviedb.title.TitleType;
 import com.graphqlguy.moviedb.user.UserRepository;
+import com.graphqlguy.moviedb.watchlist.WatchList;
+import com.graphqlguy.moviedb.watchlist.WatchListItem;
+import com.graphqlguy.moviedb.watchlist.WatchListItemRepository;
+import com.graphqlguy.moviedb.watchlist.WatchListRepository;
 import com.graphqlguy.moviedb.shared.Genre;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +46,8 @@ public class DataInitializer {
     private final EpisodeRepository episodeRepo;
     private final UserRepository userRepo;
     private final ReviewRepository reviewRepo;
+    private final WatchListRepository watchListRepo;
+    private final WatchListItemRepository watchListItemRepo;
     private final PasswordEncoder passwordEncoder;
 
     private static final String BASE = "https://image.tmdb.org/t/p/w500/";
@@ -1024,6 +1032,35 @@ public class DataInitializer {
                     .comment("The blueprint for every sitcom since.").build(),
                 Review.builder().user(admin).tvShow(got).score(7)
                     .comment("Amazing until the final season.").build()));
+
+
+            // ── Watch lists ──────────────────────────────────────────────
+            // Two lists for "user" and one public list for "admin". The AI agents
+            // course reads these through myWatchLists and writes to them through
+            // addWatchListItem, so the ids an agent looks up come from here.
+            WatchList weekend = watchListRepo.save(WatchList.builder()
+                .user(user).name("To watch this weekend")
+                .description("Short list for the next couple of evenings")
+                .isPublic(false).createdAt(OffsetDateTime.now()).build());
+            WatchList favourites = watchListRepo.save(WatchList.builder()
+                .user(user).name("All-time favourites")
+                .description("The ones worth rewatching")
+                .isPublic(false).createdAt(OffsetDateTime.now()).build());
+            WatchList staffPicks = watchListRepo.save(WatchList.builder()
+                .user(admin).name("Staff picks")
+                .description("A public list anyone can read")
+                .isPublic(true).createdAt(OffsetDateTime.now()).build());
+
+            watchListItemRepo.saveAll(List.of(
+                WatchListItem.builder().watchList(weekend).titleId(inception.getId())
+                    .titleType(TitleType.MOVIE).addedAt(OffsetDateTime.now()).watched(false).build(),
+                WatchListItem.builder().watchList(weekend).titleId(got.getId())
+                    .titleType(TitleType.TV_SHOW).addedAt(OffsetDateTime.now()).watched(false).build(),
+                WatchListItem.builder().watchList(favourites).titleId(shawshank.getId())
+                    .titleType(TitleType.MOVIE).addedAt(OffsetDateTime.now()).watched(true)
+                    .watchedAt(OffsetDateTime.now()).userNotes("Still the best ending in cinema").build(),
+                WatchListItem.builder().watchList(staffPicks).titleId(theMatrix.getId())
+                    .titleType(TitleType.MOVIE).addedAt(OffsetDateTime.now()).watched(false).build()));
 
                 log.info("Seeding complete. {} movies, {} TV shows and {} reviews created.",
                     movieRepo.count(), tvShowRepo.count(), reviewRepo.count());
