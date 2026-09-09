@@ -17,19 +17,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WatchListSchemaTest {
 
     @Test
-    void watchListCreatedAtIsOffsetDateTime() throws Exception {
+    void watchListCreatedAt_shouldBeOffsetDateTime() throws Exception {
         Field f = WatchList.class.getDeclaredField("createdAt");
         assertThat(f.getType()).isEqualTo(OffsetDateTime.class);
     }
 
     @Test
-    void watchListItemAddedAtIsOffsetDateTime() throws Exception {
+    void watchListItemAddedAt_shouldBeOffsetDateTime() throws Exception {
         Field f = WatchListItem.class.getDeclaredField("addedAt");
         assertThat(f.getType()).isEqualTo(OffsetDateTime.class);
     }
 
     @Test
-    void watchListItemWatchedAtIsOffsetDateTime() throws Exception {
+    void watchListItemWatchedAt_shouldBeOffsetDateTime() throws Exception {
         Field f = WatchListItem.class.getDeclaredField("watchedAt");
         assertThat(f.getType()).isEqualTo(OffsetDateTime.class);
     }

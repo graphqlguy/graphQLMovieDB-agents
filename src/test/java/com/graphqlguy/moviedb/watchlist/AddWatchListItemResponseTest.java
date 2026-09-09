@@ -42,7 +42,7 @@ class AddWatchListItemResponseTest {
     }
 
     @Test
-    void aListNameWhereAnIdBelongsComesBackAsData() {
+    void aListNameWhereAnId_shouldBelongComesBackAsData() {
         AddWatchListItemResponse r = controller.addWatchListItem(
                 new AddWatchListItemInput("Response test list", "1", TitleType.MOVIE, null));
 
@@ -52,7 +52,7 @@ class AddWatchListItemResponseTest {
     }
 
     @Test
-    void anUnknownListIdComesBackAsData() {
+    void anUnknownListId_shouldComeBackAsData() {
         AddWatchListItemResponse r = controller.addWatchListItem(
                 new AddWatchListItemInput("999999", "1", TitleType.MOVIE, null));
 
@@ -61,7 +61,7 @@ class AddWatchListItemResponseTest {
     }
 
     @Test
-    void anUnknownTitleIdComesBackAsData() {
+    void anUnknownTitleId_shouldComeBackAsData() {
         AddWatchListItemResponse r = controller.addWatchListItem(
                 new AddWatchListItemInput(String.valueOf(list.getId()), "999999", TitleType.MOVIE, null));
 
@@ -70,7 +70,7 @@ class AddWatchListItemResponseTest {
     }
 
     @Test
-    void addingTheSameTitleTwiceIsIdempotent() {
+    void addingTheSameTitleTwice_shouldBeIdempotent() {
         AddWatchListItemInput input =
                 new AddWatchListItemInput(String.valueOf(list.getId()), "1", TitleType.MOVIE, null);
 

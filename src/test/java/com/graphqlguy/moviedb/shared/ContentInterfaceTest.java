@@ -14,17 +14,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ContentInterfaceTest {
 
     @Test
-    void movieIsContent() {
+    void movie_shouldBeContent() {
         assertThat(Content.class).isAssignableFrom(Movie.class);
     }
 
     @Test
-    void tvShowIsContent() {
+    void tvShow_shouldBeContent() {
         assertThat(Content.class).isAssignableFrom(TvShow.class);
     }
 
     @Test
-    void contentExposesAnId() throws Exception {
+    void content_shouldExposeAnId() throws Exception {
         assertThat(Content.class.getMethod("getId").getReturnType()).isEqualTo(Long.class);
     }
 }

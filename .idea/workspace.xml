@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f4362242-4fa9-4e1a-b933-8d0b5e0cc420" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0000000004791632" />
+      <entry key="MS500" value="1.0206223470173466" />
+      <entry key="S2" value="1.994740707411061" />
+      <entry key="S5" value="3.2825987010906714" />
+      <entry key="S10" value="4.163418291395878" />
+      <entry key="S30" value="7.810096852401073" />
+      <entry key="S60" value="12.404539217459478" />
+      <entry key="M2" value="16.850152411118458" />
+      <entry key="M5" value="20.722584575223518" />
+      <entry key="M10" value="22.2820502941416" />
+      <entry key="M15" value="22.836292764640593" />
+      <entry key="M30" value="23.40873442797099" />
+      <entry key="H1" value="23.70197433189945" />
+      <entry key="H2" value="23.85038388303372" />
+      <entry key="H4" value="23.92504048319441" />
+      <entry key="D1" value="23.987485656979853" />
+      <entry key="W1" value="23.99821171950613" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9395227496673286" />
+      <entry key="MS500" value="1.0080088071969342" />
+      <entry key="S2" value="1.98923257166516" />
+      <entry key="S5" value="3.2791925835538116" />
+      <entry key="S10" value="4.161322287458856" />
+      <entry key="S30" value="7.8089187056375255" />
+      <entry key="S60" value="12.403648148034014" />
+      <entry key="M2" value="16.84955945515866" />
+      <entry key="M5" value="20.722295739743593" />
+      <entry key="M10" value="22.281895446118725" />
+      <entry key="M15" value="22.836187058894183" />
+      <entry key="M30" value="23.408680296987583" />
+      <entry key="H1" value="23.7019469389234" />
+      <entry key="H2" value="23.850370103659998" />
+      <entry key="H4" value="23.925033572658005" />
+      <entry key="D1" value="23.987484502317095" />
+      <entry key="W1" value="23.99821155448298" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3IjgPx8k4tgBRlglXaCORfGhU1v" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/zkozina/MyProjects/GraphQL/courses/graphQLMovieDB-agents-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="MovieDbApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="moviedb" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.graphqlguy.moviedb.MovieDbApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-63390994e64e-intellij.indexing.shared.core-IU-262.8665.337" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.8665.337" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f4362242-4fa9-4e1a-b933-8d0b5e0cc420" name="Changes" comment="" />
+      <created>1788283371964</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1788283371964</updated>
+      <workItem from="1788283372979" duration="2570000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

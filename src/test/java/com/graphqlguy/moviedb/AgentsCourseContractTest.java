@@ -30,27 +30,27 @@ class AgentsCourseContractTest {
     }
 
     @Test
-    void theSixAllowListedQueriesExist() {
+    void theSixAllowListedQueries_shouldExist() {
         assertThat(schema.getQueryType().getFieldDefinitions())
                 .extracting("name")
                 .contains("movie", "movies", "searchMovies", "person", "tvShow", "myWatchLists");
     }
 
     @Test
-    void theOnePermittedWriteExists() {
+    void theOnePermittedWrite_shouldExist() {
         assertThat(schema.getMutationType().getFieldDefinitions())
                 .extracting("name")
                 .contains("addWatchListItem");
     }
 
     @Test
-    void addWatchListItemReturnsTypedDataRatherThanBareItem() {
+    void addWatchListItem_shouldReturnTypedDataRatherThanBareItem() {
         var field = schema.getMutationType().getFieldDefinition("addWatchListItem");
         assertThat(field.getType().toString()).contains("AddWatchListItemResponse");
     }
 
     @Test
-    void theFlatWatchlistFromTheSeedIsGone() {
+    void theFlatWatchlist_fromTheSeed_shouldBeGone() {
         assertThat(schema.getQueryType().getFieldDefinitions())
                 .extracting("name")
                 .doesNotContain("watchlist");
@@ -60,7 +60,7 @@ class AgentsCourseContractTest {
     }
 
     @Test
-    void thereIsExactlyOneInterfaceOverMovieAndTvShow() {
+    void there_shouldBeExactlyOneInterfaceOverMovieAndTvShow() {
         assertThat(schema.getType("Content")).isNotNull();
         assertThat(schema.getType("Title")).isNull();
     }

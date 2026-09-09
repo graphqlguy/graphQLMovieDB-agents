@@ -20,7 +20,7 @@ class PersonQueryTest {
     HttpGraphQlTester graphQlTester;
 
     @Test
-    void createdShows_returnsShowsThePersonCreated() {
+    void createdShows_shouldReturnShowsThePersonCreated() {
         graphQlTester.document("""
                         { searchPeople(name: "David Crane") { name createdShows { title } } }
                         """)
@@ -31,7 +31,7 @@ class PersonQueryTest {
     }
 
     @Test
-    void countryCode_isExposedAsExtendedScalar() {
+    void countryCode_shouldBeExposedAsExtendedScalar() {
         graphQlTester.document("""
                         { searchPeople(name: "Christopher Nolan") { countryCode } }
                         """)
@@ -40,7 +40,7 @@ class PersonQueryTest {
     }
 
     @Test
-    void createPerson_withInvalidCountryCode_isRejectedByScalarCoercion() {
+    void createPerson_withInvalidCountryCode_shouldBeRejectedByScalarCoercion() {
         String token = graphQlTester.document("""
                         mutation { login(input: {username: "admin", password: "admin123"}) { token } }
                         """)
@@ -58,7 +58,7 @@ class PersonQueryTest {
     }
 
     @Test
-    void createdShows_isEmptyForNonCreators() {
+    void createdShows_shouldBeEmptyForNonCreators() {
         graphQlTester.document("""
                         { searchPeople(name: "Tom Hanks") { createdShows { title } } }
                         """)

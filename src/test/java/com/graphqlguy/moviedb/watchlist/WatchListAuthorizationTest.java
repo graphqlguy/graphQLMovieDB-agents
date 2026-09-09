@@ -44,27 +44,27 @@ class WatchListAuthorizationTest {
     }
 
     @Test
-    void ownerCanReadTheirOwnPrivateList() {
+    void privateList_asItsOwner_shouldBeReadable() {
         authenticateAs(owner);
         assertThat(service.getById(privateList.getId()).getId()).isEqualTo(privateList.getId());
     }
 
     @Test
-    void strangerCannotReadAPrivateList() {
+    void privateList_asAStranger_shouldBeHidden() {
         authenticateAs(stranger);
         assertThatThrownBy(() -> service.getById(privateList.getId()))
                 .isInstanceOf(AccessDeniedException.class);
     }
 
     @Test
-    void unauthenticatedCallerCannotReadAPrivateList() {
+    void privateList_unauthenticated_shouldBeHidden() {
         SecurityContextHolder.clearContext();
         assertThatThrownBy(() -> service.getById(privateList.getId()))
                 .isInstanceOf(AccessDeniedException.class);
     }
 
     @Test
-    void aPublicListIsReadableByAStranger() {
+    void aPublicList_shouldBeReadableByAStranger() {
         authenticateAs(owner);
         WatchList open = service.create(new CreateWatchListInput("Open list", null, true));
         authenticateAs(stranger);
@@ -72,14 +72,14 @@ class WatchListAuthorizationTest {
     }
 
     @Test
-    void strangerCannotAddAnItemToSomeoneElsesList() {
+    void addWatchListItem_toAnotherUsersList_shouldBeRejected() {
         authenticateAs(stranger);
         assertThatThrownBy(() -> service.addItem(privateList.getId(), 1L, TitleType.MOVIE, null))
                 .isInstanceOf(AccessDeniedException.class);
     }
 
     @Test
-    void strangerCannotRenameSomeoneElsesList() {
+    void renameWatchList_ofAnotherUser_shouldBeRejected() {
         authenticateAs(stranger);
         assertThatThrownBy(() ->
                 service.update(privateList.getId(), new UpdateWatchListInput("hijacked", null, null)))
@@ -87,21 +87,21 @@ class WatchListAuthorizationTest {
     }
 
     @Test
-    void strangerCannotDeleteSomeoneElsesList() {
+    void deleteWatchList_ofAnotherUser_shouldBeRejected() {
         authenticateAs(stranger);
         assertThatThrownBy(() -> service.delete(privateList.getId()))
                 .isInstanceOf(AccessDeniedException.class);
     }
 
     @Test
-    void unauthenticatedCallerCannotCreateAList() {
+    void createWatchList_unauthenticated_shouldBeRejected() {
         SecurityContextHolder.clearContext();
         assertThatThrownBy(() -> service.create(new CreateWatchListInput("nope", null, false)))
                 .isInstanceOf(AccessDeniedException.class);
     }
 
     @Test
-    void myWatchListsReturnsOnlyTheCallersLists() {
+    void myWatch_shouldListReturnsOnlyTheCallersLists() {
         authenticateAs(stranger);
         List<WatchList> mine = service.myWatchLists();
         assertThat(mine).noneMatch(w -> w.getId().equals(privateList.getId()));
